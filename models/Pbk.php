@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "pbk".
@@ -50,5 +51,12 @@ class Pbk extends \yii\db\ActiveRecord
     public function getGroup()
     {
         return $this->hasOne(PbkGroups::className(), ['ID' => 'GroupID']);
+    }
+    
+    public function getGroupOptions()
+    {
+        $groups = PbkGroups::find()->all();
+        
+        return ArrayHelper::map($groups, 'ID', 'Name');
     }
 }

@@ -7,12 +7,11 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Pbk */
 
 $this->title = $model->Name;
-$this->params['breadcrumbs'][] = ['label' => 'Pbks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Buku Telepon', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['headerTitle'] = 'Buku Telepon'
 ?>
 <div class="pbk-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->ID], ['class' => 'btn btn-primary']) ?>

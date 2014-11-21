@@ -12,11 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'GroupID')->textInput() ?>
+    <?= $form->field($model, 'Name')->textInput() ?>
 
-    <?= $form->field($model, 'Name')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'Number')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'Number')->textInput() ?>
+    
+    <?= $form->field($model, 'GroupID')->dropDownList($model->getGroupOptions(), [
+        'prompt' => '--Pilih--'
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
