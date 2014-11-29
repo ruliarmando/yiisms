@@ -44,7 +44,7 @@ class Sentitems extends \yii\db\ActiveRecord
     {
         return [
             [['UpdatedInDB', 'InsertIntoDB', 'SendingDateTime', 'DeliveryDateTime'], 'safe'],
-            [['Text', 'UDH', 'TextDecoded', 'ID', 'SenderID', 'SequencePosition', 'CreatorID'], 'required'],
+            [['Text', 'UDH', 'TextDecoded'], 'required'],
             [['Text', 'Coding', 'UDH', 'TextDecoded', 'Status', 'CreatorID'], 'string'],
             [['Class', 'ID', 'SequencePosition', 'StatusError', 'TPMR', 'RelativeValidity'], 'integer'],
             [['DestinationNumber', 'SMSCNumber'], 'string', 'max' => 20],
@@ -60,15 +60,15 @@ class Sentitems extends \yii\db\ActiveRecord
         return [
             'UpdatedInDB' => 'Updated In Db',
             'InsertIntoDB' => 'Insert Into Db',
-            'SendingDateTime' => 'Sending Date Time',
-            'DeliveryDateTime' => 'Delivery Date Time',
+            'SendingDateTime' => 'Waktu Pengiriman',
+            'DeliveryDateTime' => 'Waktu Terkirim',
             'Text' => 'Text',
-            'DestinationNumber' => 'Destination Number',
+            'DestinationNumber' => 'Nomor Tujuan',
             'Coding' => 'Coding',
             'UDH' => 'Udh',
             'SMSCNumber' => 'Smscnumber',
             'Class' => 'Class',
-            'TextDecoded' => 'Text Decoded',
+            'TextDecoded' => 'Isi Pesan',
             'ID' => 'ID',
             'SenderID' => 'Sender ID',
             'SequencePosition' => 'Sequence Position',
@@ -78,5 +78,24 @@ class Sentitems extends \yii\db\ActiveRecord
             'RelativeValidity' => 'Relative Validity',
             'CreatorID' => 'Creator ID',
         ];
+    }
+    
+    public function getShortText()
+    {
+        if (strlen($this->TextDecoded) > 40) {
+            return substr($this->TextDecoded, 0, 40).'...';
+        }
+        
+        return $this->TextDecoded;
+    }
+    
+    public function getRelativeSendingTime()
+    {
+        return Yii::$app->formatter->asRelativeTime(new \DateTime($this->SendingDateTime));
+    }
+    
+    public function getPbk()
+    {
+        return $this->hasOne(Pbk::className(), ['Number' => 'DestinationNumber']);
     }
 }

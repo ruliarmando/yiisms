@@ -117,7 +117,7 @@ LteAsset::register($this);
                             'items' => [
                                 ['label' => 'Kotak Masuk', 'url' => ['inbox/index'], 'icon' => 'fa fa-angle-double-right'],
                                 ['label' => 'Kotak Keluar', 'url' => ['outbox/index'], 'icon' => 'fa fa-angle-double-right'],
-                                ['label' => 'Pesan Terkirim', 'url' => ['sent-items/index'], 'icon' => 'fa fa-angle-double-right'],
+                                ['label' => 'Pesan Terkirim', 'url' => ['sentitems/index'], 'icon' => 'fa fa-angle-double-right'],
                             ]],
                             ['label' => 'Buku Telepon', 'url' => ['pbk/index'], 'icon' => 'fa fa-book'],
                             ['label' => 'User', 'url' => ['user/index'], 'icon' => 'fa fa-users'],
