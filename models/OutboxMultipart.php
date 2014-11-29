@@ -33,7 +33,7 @@ class OutboxMultipart extends \yii\db\ActiveRecord
         return [
             [['Text', 'Coding', 'UDH', 'TextDecoded'], 'string'],
             [['Class', 'SequencePosition'], 'integer'],
-            [['SequencePosition', 'TextDecoded', ''], 'required']
+            [['SequencePosition', 'TextDecoded', 'ID'], 'required']
         ];
     }
 

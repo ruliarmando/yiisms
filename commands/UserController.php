@@ -32,6 +32,7 @@ class UserController extends Controller
         $user->setPassword('administrator');
         $user->generateAuthKey();
         if ($user->save()) {
+            echo 'User Admin Has Been Created'
             return Controller::EXIT_CODE_NORMAL;
         } else {
             return Controller::EXIT_CODE_ERROR;

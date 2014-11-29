@@ -50,17 +50,22 @@ class Inbox extends \yii\db\ActiveRecord
     {
         return [
             'UpdatedInDB' => 'Updated In Db',
-            'ReceivingDateTime' => 'Receiving Date Time',
+            'ReceivingDateTime' => 'Waktu Pengiriman',
             'Text' => 'Text',
-            'SenderNumber' => 'Sender Number',
+            'SenderNumber' => 'Nomor Pengirim',
             'Coding' => 'Coding',
             'UDH' => 'Udh',
             'SMSCNumber' => 'Smscnumber',
             'Class' => 'Class',
-            'TextDecoded' => 'Text Decoded',
+            'TextDecoded' => 'Isi Pesan',
             'ID' => 'ID',
             'RecipientID' => 'Recipient ID',
             'Processed' => 'Processed',
         ];
+    }
+    
+    public function getPbk()
+    {
+        return $this->hasOne(Pbk::className(), ['Number' => 'SenderNumber']);
     }
 }

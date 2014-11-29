@@ -7,25 +7,12 @@ use app\models\Inbox;
 use app\models\InboxSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * InboxController implements the CRUD actions for Inbox model.
  */
 class InboxController extends BaseController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all Inbox models.
      * @return mixed

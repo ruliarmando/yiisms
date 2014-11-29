@@ -26,6 +26,10 @@ $this->params['headerTitle'] = 'Users';
             
             'username',
             'email:email',
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'd-M-Y'],
+            ],
             // 'role',
             // 'status',
             // 'created_at',

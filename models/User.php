@@ -77,8 +77,8 @@ class User extends ActiveRecord implements IdentityInterface
             'email' => 'Email',
             'role' => 'Role',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Ditambahkan Pada',
+            'updated_at' => 'Diupdate Pada',
         ];
     }
     

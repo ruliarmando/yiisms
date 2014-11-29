@@ -3,37 +3,10 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends BaseController
 {
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
-
     public function actions()
     {
         return [
@@ -49,7 +22,26 @@ class SiteController extends BaseController
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $connection = Yii::$app->db;
+        
+        $command = $connection->createCommand('SELECT COUNT(*) FROM outbox');
+        $outbox_count = $command->queryScalar();
+        
+        $command = $connection->createCommand('SELECT COUNT(*) FROM inbox');
+        $inbox_count = $command->queryScalar();
+        
+        $command = $connection->createCommand('SELECT COUNT(*) FROM pbk');
+        $pbk_count = $command->queryScalar();
+        
+        $command = $connection->createCommand('SELECT COUNT(*) FROM pbk_groups');
+        $pbk_groups_count = $command->queryScalar();
+        
+        return $this->render('index', [
+            'outbox_count' => $outbox_count,
+            'inbox_count' => $inbox_count,
+            'pbk_count' => $pbk_count,
+            'pbk_groups_count' => $pbk_groups_count,
+        ]);
     }
 
     public function actionLogin()
@@ -75,24 +67,5 @@ class SiteController extends BaseController
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 }

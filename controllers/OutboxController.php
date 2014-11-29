@@ -5,27 +5,13 @@ namespace app\controllers;
 use Yii;
 use app\models\Outbox;
 use app\models\OutboxSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * OutboxController implements the CRUD actions for Outbox model.
  */
 class OutboxController extends BaseController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all Outbox models.
      * @return mixed

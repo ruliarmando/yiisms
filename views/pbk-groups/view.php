@@ -7,8 +7,10 @@ use yii\widgets\DetailView;
 /* @var $model app\models\PbkGroups */
 
 $this->title = $model->Name;
-$this->params['breadcrumbs'][] = ['label' => 'Pbk Groups', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Buku Telepon', 'url' => ['pbk/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Group', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['headerTitle'] = 'Groups';
 ?>
 <div class="pbk-groups-view">
 

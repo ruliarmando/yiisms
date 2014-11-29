@@ -5,27 +5,13 @@ namespace app\controllers;
 use Yii;
 use app\models\Pbk;
 use app\models\PbkSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * PbkController implements the CRUD actions for Pbk model.
  */
 class PbkController extends BaseController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all Pbk models.
      * @return mixed

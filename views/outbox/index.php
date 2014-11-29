@@ -20,9 +20,23 @@ $this->params['headerTitle'] = 'Kotak Keluar';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            [
+                'header' => 'Nama',
+                'value' => 'pbk.Name'
+            ],
             'DestinationNumber',
-            'TextDecoded:ntext',
-            'SendingDateTime',
+            [
+                'attribute' => 'TextDecoded',
+                'value' => function ($model, $key, $index, $column) {
+                    return $model->shortText;
+                }
+            ],
+            [
+                'attribute' => 'SendingDateTime',
+                'value' => function ($model, $key, $index, $column) {
+                    return $model->relativeSendingTime;
+                }
+            ],
             // 'UpdatedInDB',
             // 'InsertIntoDB',
             // 'SendBefore',

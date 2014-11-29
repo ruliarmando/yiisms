@@ -20,6 +20,10 @@ $this->params['headerTitle'] = 'Kotak Masuk';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             
+            [
+                'header' => 'Nama',
+                'value' => 'pbk.Name'
+            ],
             'SenderNumber',
             'TextDecoded:ntext',
             'ReceivingDateTime',

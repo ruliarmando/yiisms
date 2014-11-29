@@ -16,6 +16,7 @@ $this->params['headerTitle'] = 'Buku Telepon';
 
     <p>
         <?= Html::a('Tambah Kontak', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Kelola Group', ['pbk-groups/index'], ['class' => 'btn btn-info']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,7 +27,10 @@ $this->params['headerTitle'] = 'Buku Telepon';
             
             'Name:ntext',
             'Number:ntext',
-            'group.Name',
+            [
+                'header' => 'Group',
+                'value' => 'group.Name'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

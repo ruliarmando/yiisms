@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Groups';
+$this->params['breadcrumbs'][] = ['label' => 'Buku Telepon', 'url' => ['pbk/index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['headerTitle'] = 'Groups';
 ?>

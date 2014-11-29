@@ -5,6 +5,7 @@ $params = require(__DIR__ . '/params.php');
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'timeZone' => 'Asia/Jakarta',
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
@@ -42,6 +43,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
         ],
+        /* 'formatter' => [
+            'timeZone' => 'Asia/Jakarta',
+            'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
+        ] */
     ],
     'params' => $params,
 ];

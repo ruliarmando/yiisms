@@ -35,8 +35,8 @@ $this->params['headerTitle'] = 'Users'
             'email:email',
             'role',
             'status',
-            'created_at',
-            'updated_at',
+            'created_at:date',
+            'updated_at:date',
         ],
     ]) ?>
 

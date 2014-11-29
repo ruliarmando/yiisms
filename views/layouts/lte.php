@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use app\components\SidebarWidget;
 use app\assets\LteAsset;
 
 /* @var $this \yii\web\View */
@@ -108,39 +109,20 @@ LteAsset::register($this);
                     </div>
                     
                     <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu">
-                        <li class="active">
-                            <a href="<?= Url::to(['site/index']) ?>">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= Url::to(['sms/send']) ?>">
-                                <i class="fa fa-pencil"></i> <span>Kirim SMS</span>
-                            </a>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-envelope"></i>
-                                <span>SMS</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?= Url::to(['inbox/index']) ?>"><i class="fa fa-angle-double-right"></i> Kotak Masuk</a></li>
-                                <li><a href="<?= Url::to(['outbox/index']) ?>"><i class="fa fa-angle-double-right"></i> Kotak Keluar</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="<?= Url::to(['pbk/index']) ?>">
-                                <i class="fa fa-book"></i> <span>Buku Telepon</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= Url::to(['user/index']) ?>">
-                                <i class="fa fa-users"></i> <span>Users</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <?= SidebarWidget::widget([
+                        'items' => [
+                            ['label' => 'Dashboard', 'url' => ['site/index'], 'icon' => 'fa fa-dashboard'],
+                            ['label' => 'Kirim SMS', 'url' => ['sms/send'], 'icon' => 'fa fa-pencil'],
+                            ['label' => 'SMS', 'url' => '#', 'options' => ['class' =>'treeview'], 'icon' => 'fa fa-envelope', 'submenu' => true,
+                            'items' => [
+                                ['label' => 'Kotak Masuk', 'url' => ['inbox/index'], 'icon' => 'fa fa-angle-double-right'],
+                                ['label' => 'Kotak Keluar', 'url' => ['outbox/index'], 'icon' => 'fa fa-angle-double-right']
+                            ]],
+                            ['label' => 'Buku Telepon', 'url' => ['pbk/index'], 'icon' => 'fa fa-book'],
+                            ['label' => 'User', 'url' => ['user/index'], 'icon' => 'fa fa-users'],
+                            ['label' => 'Setelan', 'url' => ['setting/index'], 'icon' => 'fa fa-gears']
+                        ]
+                    ]); ?>
                 </section>
                 <!-- /.sidebar -->
             </aside>
@@ -159,9 +141,12 @@ LteAsset::register($this);
 
                 <!-- Main content -->
                 <section class="content">
-
-                    <?= $content ?>
-
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <?= $content ?>
+                        </div>
+                    </div>
+                    <?php if (isset($this->blocks['x_content'])) { echo $this->blocks['x_content']; } ?>
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->

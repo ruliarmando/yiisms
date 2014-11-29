@@ -48,6 +48,7 @@ class Outbox extends \yii\db\ActiveRecord
             [['Text', 'TextDecoded'], 'string'],
             [['TextDecoded', 'DestinationNumber'], 'required'],
             ['CreatorID', 'default', 'value' => self::PHONE_ID],
+            ['Coding', 'default', 'value' => 'Default_No_Compression'],
             [['DestinationNumber'], 'string', 'max' => 20],
             [['SenderID'], 'string', 'max' => 255]
         ];
@@ -61,15 +62,15 @@ class Outbox extends \yii\db\ActiveRecord
         return [
             'UpdatedInDB' => 'Updated In Db',
             'InsertIntoDB' => 'Insert Into Db',
-            'SendingDateTime' => 'Sending Date Time',
+            'SendingDateTime' => 'Waktu Pengiriman',
             'SendBefore' => 'Send Before',
             'SendAfter' => 'Send After',
             'Text' => 'Text',
-            'DestinationNumber' => 'Destination Number',
+            'DestinationNumber' => 'Nomor Tujuan',
             'Coding' => 'Coding',
             'UDH' => 'Udh',
             'Class' => 'Class',
-            'TextDecoded' => 'Text Decoded',
+            'TextDecoded' => 'Isi Pesan',
             'ID' => 'ID',
             'MultiPart' => 'Multi Part',
             'RelativeValidity' => 'Relative Validity',
@@ -78,5 +79,24 @@ class Outbox extends \yii\db\ActiveRecord
             'DeliveryReport' => 'Delivery Report',
             'CreatorID' => 'Creator ID',
         ];
+    }
+    
+    public function getShortText()
+    {
+        if (strlen($this->TextDecoded) > 40) {
+            return substr($this->TextDecoded, 0, 40).'...';
+        }
+        
+        return $this->TextDecoded;
+    }
+    
+    public function getRelativeSendingTime()
+    {
+        return Yii::$app->formatter->asRelativeTime(new \DateTime($this->SendingDateTime));
+    }
+    
+    public function getPbk()
+    {
+        return $this->hasOne(Pbk::className(), ['Number' => 'DestinationNumber']);
     }
 }

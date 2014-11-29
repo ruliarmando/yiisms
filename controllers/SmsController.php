@@ -2,11 +2,49 @@
 
 namespace app\controllers;
 
-class SmsController extends \app\controllers\BaseController
+use Yii;
+use yii\db\Query;
+use yii\helpers\Json;
+use app\models\SendSmsForm;
+use app\models\Pbk;
+
+use yii\helpers\Html;
+use app\components\FooInputWidget;
+use app\components\SidebarWidget;
+
+class SmsController extends BaseController
 {
     public function actionSend()
     {
-        return $this->render('send');
+        $model = new SendSmsForm();
+        $model->sendingOptions = SendSmsForm::SEND_OPT_SINGLE;
+        $model->timeOptions = SendSmsForm::TIME_OPT_NOW;
+        
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->send();
+            Yii::$app->session->setFlash('success', 'SMS Telah Dikirim');
+            return $this->refresh();
+        } else {
+            return $this->render('send', [
+                'model' => $model,
+            ]);
+        }
     }
-
+    
+    public function actionContactList($q = null)
+    {
+        $out = [];
+        
+        if (!is_null($q)) {
+            $query = new Query;
+            $query->select('ID as id, Name As name')
+                ->from('pbk')
+                ->where('Name LIKE "%'.$q.'%"');
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            $out = array_values($data);
+        }
+        
+        echo Json::encode($out);
+    }
 }
