@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
+use yii\bootstrap\Alert;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -10,6 +11,16 @@ use yii\helpers\Url;
 $this->title = 'YiiSMS - Login';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php if (Yii::$app->session->hasFlash('success')): ?>
+<?= Alert::widget([
+    'options' => [
+        'class' => 'alert-info'
+    ],
+    'body' => Yii::$app->session->getFlash('success')
+]) ?>
+<?php endif; ?>
+
 <div class="form-box" id="login-box">
     <div class="header">Sign In</div>
 
@@ -46,7 +57,7 @@ $this->title = 'YiiSMS - Login';
         
         <?= Html::submitButton('Login', ['class' => 'btn bg-olive btn-block', 'name' => 'login-button']) ?>
         
-        <p><a href="<?= Url::to(['site/forgot']) ?>">I forgot my password</a></p>
+        <p><a href="<?= Url::to(['site/request-password-reset']) ?>">I forgot my password</a></p>
         
     </div>
 

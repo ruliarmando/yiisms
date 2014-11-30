@@ -19,7 +19,7 @@ class BaseController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'logout'],
                         'roles' => ['@']
                     ],
                     [
@@ -33,7 +33,6 @@ class BaseController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
-                    'logout' => ['post'],
                 ],
             ],
         ];

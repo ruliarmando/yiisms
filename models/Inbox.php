@@ -68,4 +68,9 @@ class Inbox extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Pbk::className(), ['Number' => 'SenderNumber']);
     }
+    
+    public static function find()
+    {
+        return new InboxQuery(get_called_class());
+    }
 }

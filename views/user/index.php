@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UserSearch */
@@ -30,8 +31,13 @@ $this->params['headerTitle'] = 'Users';
                 'attribute' => 'created_at',
                 'format' => ['date', 'd-M-Y'],
             ],
+            [
+                'attribute' => 'status',
+                'value' => function ($model, $key, $index, $column) {
+                    return $model->status == User::STATUS_ACTIVE ? 'Aktif' : 'Non Aktif';
+                }
+            ],
             // 'role',
-            // 'status',
             // 'created_at',
             // 'updated_at',
 

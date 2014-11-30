@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Outbox */
 
 $this->title = 'Create Outbox';
-$this->params['breadcrumbs'][] = ['label' => 'Outboxes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Kotak Keluar', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="outbox-create">

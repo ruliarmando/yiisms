@@ -15,6 +15,7 @@ $this->params['headerTitle'] = 'Users'
 
     <?= $this->render('_form', [
         'model' => $model,
+        'update' => false,
     ]) ?>
 
 </div>

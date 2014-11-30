@@ -29,8 +29,6 @@ class User extends ActiveRecord implements IdentityInterface
     
     const ROLE_ADMIN = 10;
     
-    public $plainPassword;
-    
     /**
      * @inheritdoc
      */
@@ -80,22 +78,6 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at' => 'Ditambahkan Pada',
             'updated_at' => 'Diupdate Pada',
         ];
-    }
-    
-    public function beforeSave($insert)
-    {
-        if (parent::beforeSave($insert)) {
-            
-            $this->setPassword($this->plainPassword);
-            
-            if ($this->isNewRecord()) {
-                $this->generateAuthKey();
-            }
-                
-            return true;
-        } else {
-            return false;
-        }
     }
     
     public function getStatusOptions()

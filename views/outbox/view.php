@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Outbox */
 
 $this->title = $model->DestinationNumber;
-$this->params['breadcrumbs'][] = ['label' => 'Outboxes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Kotak Keluar', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="outbox-view">

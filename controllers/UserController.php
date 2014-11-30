@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\User;
+use app\models\UserAddForm;
+use app\models\UserUpdateForm;
 use app\models\UserSearch;
 use yii\web\NotFoundHttpException;
 
@@ -46,11 +48,12 @@ class UserController extends BaseController
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new UserAddForm();
+        $model->scenario = 'create';
         $model->status = User::STATUS_ACTIVE;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $user = $model->create()) {
+            return $this->redirect(['view', 'id' => $user->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -66,9 +69,9 @@ class UserController extends BaseController
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = new UserUpdateForm($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->update()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

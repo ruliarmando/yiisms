@@ -7,6 +7,7 @@ use yii\db\Query;
 use yii\helpers\Json;
 use app\models\SendSmsForm;
 use app\models\Pbk;
+use app\models\Inbox;
 
 use yii\helpers\Html;
 use app\components\FooInputWidget;
@@ -46,5 +47,17 @@ class SmsController extends BaseController
         }
         
         echo Json::encode($out);
+    }
+    
+    public function actionNotification()
+    {
+        $new_msg = Inbox::find()->unread()->asArray()->all();
+        
+        $result = [];
+        
+        $result['count'] = count($new_msg);
+        $result['items'] = $new_msg;
+        
+        echo Json::encode($result);
     }
 }
