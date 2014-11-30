@@ -6,16 +6,14 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Inbox */
 
-$this->title = $model->ID;
-$this->params['breadcrumbs'][] = ['label' => 'Inboxes', 'url' => ['index']];
+$this->title = $model->SenderNumber;
+$this->params['breadcrumbs'][] = ['label' => 'Kotak Masuk', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['headerTitle'] = 'Kotak Masuk';
 ?>
 <div class="inbox-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->ID], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->ID], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -28,18 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'UpdatedInDB',
             'ReceivingDateTime',
-            'Text:ntext',
             'SenderNumber',
-            'Coding',
-            'UDH:ntext',
-            'SMSCNumber',
-            'Class',
             'TextDecoded:ntext',
             'ID',
-            'RecipientID:ntext',
-            'Processed',
         ],
     ]) ?>
 
