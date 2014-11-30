@@ -10,7 +10,7 @@ REQUIREMENTS
 
 The minimum requirement by this application that your Web server supports PHP 5.4.0.
 
-REQUIREMENTS
+INSTALLATION
 ------------
 
 Just clone this repository or use the zip download then run composer install to pull the base framework and
