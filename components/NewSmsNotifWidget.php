@@ -24,6 +24,7 @@ class NewSmsNotifWidget extends Widget
                 // This makes it unable to send a new request 
                 // unless you get response from last request
                 response = false;
+                
                 var req = \$.ajax({
                     type: 'get',
                     url: '{$this->url}',
@@ -64,7 +65,7 @@ class NewSmsNotifWidget extends Widget
             setTimeout(request, 1000 * 60 * {$this->interval});
         }
 
-        request();", View::POS_END, 'token-input');
+        request();", View::POS_END, 'notif-widget');
     }
     
     public function run()

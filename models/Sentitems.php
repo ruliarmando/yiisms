@@ -66,7 +66,7 @@ class Sentitems extends \yii\db\ActiveRecord
             'DestinationNumber' => 'Nomor Tujuan',
             'Coding' => 'Coding',
             'UDH' => 'Udh',
-            'SMSCNumber' => 'Smscnumber',
+            'SMSCNumber' => 'SMSC',
             'Class' => 'Class',
             'TextDecoded' => 'Isi Pesan',
             'ID' => 'ID',

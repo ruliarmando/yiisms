@@ -64,9 +64,23 @@ class Inbox extends \yii\db\ActiveRecord
         ];
     }
     
+    public function getRelativeReceivingTime()
+    {
+        return Yii::$app->formatter->asRelativeTime(new \DateTime($this->ReceivingDateTime));
+    }
+    
     public function getPbk()
     {
-        return $this->hasOne(Pbk::className(), ['Number' => 'SenderNumber']);
+        //return $this->hasOne(Pbk::className(), ['Number' => 'SenderNumber']);
+        $number = $this->SenderNumber;
+        if (strpos($number, '+') !== false) {
+            $number = str_replace('+62', '0', $number);
+        }
+        $pbk = Pbk::find(['Number' => $number])->one();
+        if ($pbk !== null) {
+            return $pbk->Name;
+        }
+        return '(not set)';
     }
     
     public static function find()

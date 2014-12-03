@@ -145,7 +145,7 @@ $this->registerJs($timeOptionsJs, View::POS_END, 'time-options-js');
     <?= $form->field($model, 'text')->widget(TextCounterWidget::className(), [
         'options' => ['rows' => 5, 'class' => 'form-control'],
         'pluginOptions' => [
-            'maxCharacterSize' => 144,
+            'maxCharacterSize' => 153,
             'originalStyle' => 'originalTextareaInfo',
             'warningStyle' => 'warningTextareaInfo',
             'warningNumber' => 40,

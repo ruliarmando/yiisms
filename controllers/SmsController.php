@@ -23,7 +23,7 @@ class SmsController extends BaseController
         
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->send();
-            Yii::$app->session->setFlash('success', 'SMS Telah Dikirim');
+            Yii::$app->session->setFlash('success', 'SMS telah disimpan untuk dikirim');
             return $this->refresh();
         } else {
             return $this->render('send', [

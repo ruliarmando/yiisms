@@ -26,7 +26,12 @@ $this->params['headerTitle'] = 'Kotak Masuk';
             ],
             'SenderNumber',
             'TextDecoded:ntext',
-            'ReceivingDateTime',
+            [
+                'attribute' => 'ReceivingDateTime',
+                'value' => function ($model, $key, $index, $column) {
+                    return $model->relativeReceivingTime;
+                }
+            ],
             // 'UpdatedInDB',
             // 'Text:ntext',
             // 'Coding',
