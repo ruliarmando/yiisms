@@ -19,13 +19,13 @@ $this->title = 'Dashboard';
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-aqua">
             <div class="inner">
-                <h3><?= $outbox_count ?></h3>
-                <p>Kotak Keluar</p>
+                <h3><?= $sentitems_count ?></h3>
+                <p>Pesan Terkirim</p>
             </div>
             <div class="icon">
                 <i class="ion ion-arrow-up-c"></i>
             </div>
-            <a href="<?= Url::to(['outbox/index']) ?>" class="small-box-footer">
+            <a href="<?= Url::to(['sentitems/index']) ?>" class="small-box-footer">
                 More info <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -34,7 +34,7 @@ $this->title = 'Dashboard';
         <div class="small-box bg-green">
             <div class="inner">
                 <h3><?= $inbox_count ?></h3>
-                <p>Kotak Masuk</p>
+                <p>Pesan Diterima</p>
             </div>
             <div class="icon">
                 <i class="ion ion-arrow-down-c"></i>

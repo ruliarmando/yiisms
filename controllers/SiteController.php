@@ -33,8 +33,8 @@ class SiteController extends BaseController
         
         $connection = Yii::$app->db;
         
-        $command = $connection->createCommand('SELECT COUNT(*) FROM outbox');
-        $outbox_count = $command->queryScalar();
+        $command = $connection->createCommand('SELECT COUNT(*) FROM sentitems');
+        $sentitems_count = $command->queryScalar();
         
         $command = $connection->createCommand('SELECT COUNT(*) FROM inbox');
         $inbox_count = $command->queryScalar();
@@ -46,7 +46,7 @@ class SiteController extends BaseController
         $pbk_groups_count = $command->queryScalar();
         
         return $this->render('index', [
-            'outbox_count' => $outbox_count,
+            'sentitems_count' => $sentitems_count,
             'inbox_count' => $inbox_count,
             'pbk_count' => $pbk_count,
             'pbk_groups_count' => $pbk_groups_count,
@@ -54,7 +54,7 @@ class SiteController extends BaseController
     }
 
     public function actionLogin()
-    {   
+    {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
