@@ -112,7 +112,7 @@ LteAsset::register($this);
                             ]],
                             ['label' => 'Buku Telepon', 'url' => ['pbk/index'], 'icon' => 'fa fa-book'],
                             ['label' => 'User', 'url' => ['user/index'], 'icon' => 'fa fa-users'],
-                            ['label' => 'Setelan', 'url' => ['setting/index'], 'icon' => 'fa fa-gears']
+                            ['label' => 'Setelan', 'url' => ['settings/index'], 'icon' => 'fa fa-gears']
                         ]
                     ]); ?>
                 </section>

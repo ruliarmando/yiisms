@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PbkSearch */
@@ -18,7 +19,8 @@ $this->params['headerTitle'] = 'Buku Telepon';
         <?= Html::a('Tambah Kontak', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Kelola Group', ['pbk-groups/index'], ['class' => 'btn btn-info']) ?>
     </p>
-
+    
+    <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -35,5 +37,5 @@ $this->params['headerTitle'] = 'Buku Telepon';
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
+    <?php Pjax::end(); ?>
 </div>
