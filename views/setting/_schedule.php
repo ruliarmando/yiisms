@@ -1,1 +1,0 @@
-<h2>Pengaturan untuk penjadwalan pesan</h2>
