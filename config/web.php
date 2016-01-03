@@ -39,10 +39,10 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-        ],
+//        'urlManager' => [
+//            'enablePrettyUrl' => true,
+//            'showScriptName' => false,
+//        ],
         /* 'formatter' => [
             'timeZone' => 'Asia/Jakarta',
             'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',

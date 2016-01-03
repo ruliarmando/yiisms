@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `sms2`
 --
-CREATE DATABASE IF NOT EXISTS `sms2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `sms2`;
+CREATE DATABASE IF NOT EXISTS `sms` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `sms`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +29,7 @@ USE `sms2`;
 --
 
 CREATE TABLE IF NOT EXISTS `daemons` (
-  `Start` text NOT NULL,
+  `Start` TEXT NOT NULL,
   `Info` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

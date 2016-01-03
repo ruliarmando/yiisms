@@ -4,42 +4,46 @@ use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\components\SidebarWidget;
 use app\components\NewSmsNotifWidget;
-use app\assets\LteAsset;
+use yii\bootstrap\Nav;
+use app\components\Alert;
+// use app\assets\LteAsset;
+use app\assets\AppAsset;
+use app\assets\AdminlteAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-LteAsset::register($this);
+// LteAsset::register($this);
+AppAsset::register($this);
+AdminlteAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="<?= Yii::$app->charset ?>">
-        <title>Yii SMS - <?= Html::encode($this->title) ?></title>
-        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <?= Html::csrfMetaTags() ?>
-        <?php $this->head() ?>
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-    </head>
-    
-    <body class="skin-blue">
-        <?php $this->beginBody() ?>
-        <!-- header logo: style can be found in header.less -->
-        <header class="header">
-            <a href="index.html" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Yii SMS
+<html lang="<?= Yii::$app->language ?>">
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= Html::csrfMetaTags() ?>
+    <title>Yii SMS - <?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<?php $this->beginBody() ?>
+    <div class="wrapper">
+        <?php // echo $this->render('header.php') ?>
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="<?= Yii::$app->request->baseUrl; ?>" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>SMS</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Admin</b>LTE</span>
             </a>
+
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -79,13 +83,15 @@ LteAsset::register($this);
                             </ul>
                         </li>
                     </ul>
-                </div>
+                </div>                
             </nav>
         </header>
-        <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
-                <!-- sidebar: style can be found in sidebar.less -->
+
+        <?php // echo  $this->render('left.php') ?>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+
+             <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
@@ -93,12 +99,18 @@ LteAsset::register($this);
                             <img src="<?= Url::to('@web/img/avatar5.png') ?>" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, <?= Yii::$app->user->identity->username ?></p>
-
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <p>
+                              <?php
+                                  $info[] = 'Hello';
+                                  if(isset(Yii::$app->user->identity->username))
+                                      $info[] = ucfirst(\Yii::$app->user->identity->username);
+                                  echo implode(', ', $info);
+                              ?>
+                            </p>
+                            <a><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-                    
+
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <?= SidebarWidget::widget([
                         'items' => [
@@ -114,37 +126,240 @@ LteAsset::register($this);
                             ['label' => 'User', 'url' => ['user/index'], 'icon' => 'fa fa-users'],
                             ['label' => 'Setelan', 'url' => ['settings/index'], 'icon' => 'fa fa-gears']
                         ]
-                    ]); ?>
+                    ]); ?>            
                 </section>
-                <!-- /.sidebar -->
-            </aside>
+          <!-- /.sidebar -->
+        </aside>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
+        <?php // echo  $this->render('content.php',['content' => $content]) ?>
+        <div class="content-wrapper">
+            <section class="content-header">
+                <?php if (isset($this->blocks['content-header'])) { ?>
+                    <h1><?= $this->blocks['content-header'] ?></h1>
+                <?php } else { ?>
                     <h1>
-                        <?php echo isset($this->params['headerTitle']) ? $this->params['headerTitle'] : 'Dashboard'; ?>
+                        <?php
+                        if ($this->title !== null) {
+                            echo \yii\helpers\Html::encode($this->title);
+                        } else {
+                            echo \yii\helpers\Inflector::camel2words(
+                                \yii\helpers\Inflector::id2camel($this->context->module->id)
+                            );
+                            echo ($this->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';
+                        } ?>
                     </h1>
-                    <?= Breadcrumbs::widget([
-                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                    ]) ?>
-                </section>
+                <?php } ?>
 
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <?= $content ?>
+                <?= Breadcrumbs::widget(
+                    ['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]
+                ) ?>
+            </section>
+
+            <section class="content">
+                <?= $content ?>
+            </section>
+        </div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.0
+            </div>
+            <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+            reserved.
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                    <h3 class="control-sidebar-heading">Recent Activity</h3>
+                    <ul class='control-sidebar-menu'>
+                        <li>
+                            <a href='javascript::;'>
+                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                    <p>Will be 23 on April 24th</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='javascript::;'>
+                                <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                    <p>New phone +1(800)555-1234</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='javascript::;'>
+                                <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                                    <p>nora@example.com</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='javascript::;'>
+                                <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                                    <p>Execution time 5 seconds</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+
+                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                    <ul class='control-sidebar-menu'>
+                        <li>
+                            <a href='javascript::;'>
+                                <h4 class="control-sidebar-subheading">
+                                    Custom Template Design
+                                    <span class="label label-danger pull-right">70%</span>
+                                </h4>
+
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='javascript::;'>
+                                <h4 class="control-sidebar-subheading">
+                                    Update Resume
+                                    <span class="label label-success pull-right">95%</span>
+                                </h4>
+
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='javascript::;'>
+                                <h4 class="control-sidebar-subheading">
+                                    Laravel Integration
+                                    <span class="label label-waring pull-right">50%</span>
+                                </h4>
+
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='javascript::;'>
+                                <h4 class="control-sidebar-subheading">
+                                    Back End Framework
+                                    <span class="label label-primary pull-right">68%</span>
+                                </h4>
+
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+
+                </div>
+                <!-- /.tab-pane -->
+
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <form method="post">
+                        <h3 class="control-sidebar-heading">General Settings</h3>
+
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Report panel usage
+                                <input type="checkbox" class="pull-right" checked/>
+                            </label>
+
+                            <p>
+                                Some information about this general settings option
+                            </p>
                         </div>
-                    </div>
-                    <?php if (isset($this->blocks['x_content'])) { echo $this->blocks['x_content']; } ?>
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+                        <!-- /.form-group -->
 
-        <!-- add new calendar event modal -->
-    <?php $this->endBody() ?>
-    </body>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Allow mail redirect
+                                <input type="checkbox" class="pull-right" checked/>
+                            </label>
+
+                            <p>
+                                Other sets of options are available
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Expose author name in posts
+                                <input type="checkbox" class="pull-right" checked/>
+                            </label>
+
+                            <p>
+                                Allow the user to show his name in blog posts
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+
+                        <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Show me as online
+                                <input type="checkbox" class="pull-right" checked/>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Turn off notifications
+                                <input type="checkbox" class="pull-right"/>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Delete chat history
+                                <a href="javascript::;" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside><!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
+        <div class='control-sidebar-bg'></div>        
+    </div>
+<?php $this->endBody() ?>
+</body>
 </html>
 <?php $this->endPage() ?>
