@@ -18,6 +18,8 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
+        "FortAwesome/Font-Awesome": "*",
+        "almasaeed2010/adminlte": "~2.3.2",
         "kartik-v/yii2-widgets": "*",
         "miloschuman/yii2-highcharts-widget": "dev-master"
     },
